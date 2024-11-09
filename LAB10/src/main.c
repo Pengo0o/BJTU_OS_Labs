@@ -1,9 +1,9 @@
-#include "/home/peng/BJTU_OS_Labs/LAB2/head/bank.h"
+#include "/opt/data/private/hyp/BJTU_OS_Labs/LAB10/head/bank.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 int main() {
-    printf(BOL+D BLUE "22331170-YunpengHuan-banks\n" RESET);
+    printf(BOLD BLUE "22331170-YunpengHuan-banks\n" RESET);
 
     const int num_processes = 5;
     const int num_resources = 3;

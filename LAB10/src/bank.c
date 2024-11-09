@@ -1,4 +1,4 @@
-#include "/home/peng/BJTU_OS_Labs/LAB2/head/bank.h"
+#include "/opt/data/private/hyp/BJTU_OS_Labs/LAB10/head/bank.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
