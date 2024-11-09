@@ -4,7 +4,6 @@
 #include <string.h>
 
 
-
 // Process functions
 void init_process(Process *process, int num_res) {
     process->num_res = num_res;
