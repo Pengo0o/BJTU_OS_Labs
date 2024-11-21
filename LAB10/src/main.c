@@ -6,7 +6,7 @@ int main() {
     printf(BOLD BLUE "22331170-YunpengHuan-banks\n" RESET);
 
     const int num_processes = 5;
-    const int num_resources = 3;
+    const int num_resources = 4;
 
     Process p[num_processes];
     for (int i = 0; i < num_processes; i++) {
@@ -14,27 +14,28 @@ int main() {
     }
 
     // Set up processes
-    int max_resources[5][3] = {
-        {7, 5, 3},
-        {3, 2, 2},
-        {9, 0, 2},
-        {2, 2, 2},
-        {4, 3, 3}
+    int max_resources[5][4] = {
+    {6, 4, 7, 3},  
+    {4, 2, 3, 2},  
+    {2, 5, 3, 3},  
+    {6, 3, 3, 2},  
+    {5, 6, 7, 5}   
     };
-    int allocations[5][3] = {
-        {0, 1, 0},
-        {2, 0, 0},
-        {3, 0, 2},
-        {2, 1, 1},
-        {0, 0, 2}
+
+    int allocations[5][4] = {
+    {4, 2, 3, 1},  
+    {2, 0, 1, 1},  
+    {0, 2, 1, 1},  
+    {2, 1, 1, 1},  
+    {1, 3, 5, 2}   
     };
-    int needs[5][3] = {
-        {7, 4, 3},
-        {1, 2, 2},
-        {6, 0, 0},
-        {0, 1, 1},
-        {4, 3, 1}
-    };
+
+    int needs[5][3];
+    for (int i = 0; i < num_processes; i++) {
+        for (int j = 0; j < num_resources; j++) {
+            needs[i][j] = max_resources[i][j] - allocations[i][j];
+        }
+    }
 
     for (int i = 0; i < num_processes; i++) {
         set_process_max(&p[i], max_resources[i]);
@@ -46,24 +47,26 @@ int main() {
     BankersTask task;
     init_bankers_task(&task, num_resources, num_processes);
     set_task_processes(&task, p);
-    int available_resources[3] = {3, 3, 2};
+    int available_resources[4] = {3, 3,2,2};
     set_task_available(&task, available_resources);
 
     // Resource requests
-    int request0[3] = {0, 0, 0};
-    resource_request(&task, 0, request0); // T0
+    // 进程 0 请求（安全）
+int request0[4] = {1, 0, 2, 1};
+resource_request(&task, 0, request0);
 
-    int request1[3] = {1, 0, 2};
-    resource_request(&task, 1, request1); // T1
 
-    int request2[3] = {3, 3, 0};
-    resource_request(&task, 4, request2); // T2
+int request1[4] = {0, 1, 1, 1};
+resource_request(&task, 1, request1);
 
-    int request3[3] = {0, 2, 0};
-    resource_request(&task, 0, request3); // T3
+int request2[4] = {1, 0, 2, 0};
+resource_request(&task, 2, request2);
 
-    int request4[3] = {0, 1, 0};
-    resource_request(&task, 0, request4); // T4
+int request3[4] = {3, 2, 2, 1};
+resource_request(&task, 3, request3);
+
+int request4[4] = {1, 2, 1, 1};
+resource_request(&task, 4, request4);
 
     // Cleanup
     destroy_bankers_task(&task);
